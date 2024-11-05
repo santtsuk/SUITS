@@ -80,7 +80,7 @@
                         <i class="fa-solid fa-user-tie ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                      <?php echo funcionariosAtivos(); ?>
+                     80
                       </h5>
                       <span class="text-white text-sm">Funcionarios Ativos</span>
                     </div>
