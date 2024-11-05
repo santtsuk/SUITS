@@ -781,6 +781,10 @@ progress {
   color: #52525b;
 }
 
+.table-responsive {
+  overflow-x: auto;
+}
+
 .container,
 .container-fluid,
 .container-xxl,

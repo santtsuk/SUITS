@@ -186,7 +186,8 @@
   </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
   <script>
@@ -194,8 +195,11 @@
     $('#cpf').mask('000.000.000-00');
     $('#telefone').mask('(00)00000-0000');
     $('#cep').mask('00000-000');
+    $('#tableFunci').DataTable({
+        responsive: true
+    });
   });
-  new DataTable('#tableFunci');
+  
 </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

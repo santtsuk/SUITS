@@ -1,7 +1,10 @@
 <?php
+session_start();
 include "head.php";
 include "menu.php";
 include "navbar.php";
+$nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : 'Visitante';
+echo "<h1> Bem-vindo, $nome!</h1>";
 ?>
 <div class="content">
     <?php
