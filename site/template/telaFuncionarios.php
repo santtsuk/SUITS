@@ -27,7 +27,7 @@
                                 <td style="text-align: center;"><?php echo $dados['nome']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['cpf']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['perfil']; ?></td>
-                                <td style="text-align: center;"><?php echo $dados['numeroOAB']; ?></td>
+                                <td style="text-align: center;"><?php echo $dados['numero_oab']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['email']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['telefone']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['status']; ?></td>
@@ -36,7 +36,7 @@
                                         <i class="fa-solid fa-pencil btn btn-primary" data-toggle="modal" data-target="#myModalFunci"></i>
                                     </a>
                                     <a href="../site/scripts/del_funci.php?id=<?php echo $dados['id']; ?>">
-                                        <i class="fa-solid fa-trash-can btn btn-danger"></i>
+                                        <i class="fa-solid fa-trash btn btn-danger"></i>
                                     </a>
                             </tr>
                         <?php

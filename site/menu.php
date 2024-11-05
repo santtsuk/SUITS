@@ -51,7 +51,7 @@
             </div>
             <span class="nav-link-text ms-1">Funcionário</span>
           </a>
-          <div class="collapse" id="submenuFuncionario">
+          <div class="collapse" id="submenuFuncionario" style="background-color:#eee;">
             <ul class="navbar-nav ms-3">
               <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?r=cadFuncionario">

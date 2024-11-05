@@ -37,11 +37,11 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Telefone</label>
-                        <input type="text" id="telefone"  required name="telefone" class="form-control" placeholder="(00) 00000-0000" maxlength="11">
+                        <input type="text" id="telefone"  required name="telefone" class="form-control" placeholder="(00)00000-0000" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCep" class="form-label">CEP</label>
-                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000" maxlength="10" onblur="pesquisacep(this.value)">
+                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000"  onblur="pesquisacep(this.value)">
                     </div>
                     <div class="col-md-6">
                         <label for="inputRua" class="form-label">Número</label>
@@ -133,7 +133,7 @@ function habilitarCampo(){
 <?php
 
 if (!empty($_POST)) {
-    include "../pages/scripts/config.php";
+    include "../site/scripts/config.php";
 
     $nome = $mysqli->real_escape_string($_POST['nome']);
     $cpf = $mysqli->real_escape_string($_POST['cpf']);
@@ -146,10 +146,12 @@ if (!empty($_POST)) {
     $rua = $mysqli->real_escape_string($_POST['rua']);
     $bairro = $mysqli->real_escape_string($_POST['bairro']);
     $cidade = $mysqli->real_escape_string($_POST['cidade']);
+    $numero = $mysqli->real_escape_string($_POST['numero']);
     $estado = $mysqli->real_escape_string($_POST['estado']);
+    $status = "Ativo";
 
-        $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numeroOAB,email,senha,telefone, cep, rua, bairro, cidade, estado) 
-                VALUES ('$nome', '$cpf', '$perfil','$numeroOAB','$email', '$senha', '$telefone', '$cep', '$rua', '$bairro', '$cidade', '$estado')";
+        $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,email,senha,telefone, cep, rua, bairro, cidade,numero, estado,status) 
+                VALUES ('$nome', '$cpf', '$perfil','$numeroOAB','$email', '$senha', '$telefone', '$cep', '$rua', '$bairro', '$cidade','$numero', '$estado','$status')";
         $query = $mysqli->query($sql);
 
         if ($query) { ?>
