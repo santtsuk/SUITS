@@ -30,6 +30,24 @@ USE suits;
 -- Estrutura para tabela `funcionarios`
 --
 
+CREATE TABLE agendamentos (
+    titulo VARCHAR(100) NOT NULL,
+    data DATE NOT NULL,
+    horario TIME NOT NULL,
+    cliente VARCHAR(200) NOT NULL,
+    descricao VARCHAR(200) NOT NULL
+);
+
+
+CREATE TABLE processos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_processo VARCHAR(100) NOT NULL,
+    data DATE NOT NULL,
+    horario TIME NOT NULL,
+    vara VARCHAR(200) NOT NULL,
+    cliente VARCHAR(200) NOT NULL
+);
+
 CREATE TABLE `funcionarios` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
