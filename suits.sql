@@ -25,6 +25,33 @@ CREATE DATABASE suits;
 USE suits;
 
 -- --------------------------------------------------------
+--
+--Estrutura para a tabela de "clientes"
+--
+
+CREATE TABLE clientes (  
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+    nome VARCHAR(100) NOT NULL,  
+    cpf VARCHAR(14) NOT NULL UNIQUE,  
+    data_nascimento DATE NOT NULL,  
+    nascionalidade VARCHAR(50) NOT NULL,  
+    estado_civil VARCHAR(20) NOT NULL,  
+    profissao VARCHAR(50) NOT NULL,  
+    email VARCHAR(100) NOT NULL UNIQUE,  
+    telefone VARCHAR(15) NOT NULL,  
+    cep VARCHAR(10) NOT NULL,  
+    rua VARCHAR(100) NOT NULL,  
+    bairro VARCHAR(50) NOT NULL,  
+    cidade VARCHAR(50) NOT NULL,  
+    numero VARCHAR(10) NOT NULL,  
+    estado VARCHAR(2) NOT NULL,  
+    status VARCHAR(10) NOT NULL  
+);
+
+
+
+
+-- --------------------------------------------------------
 
 --
 -- Estrutura para tabela `funcionarios`
