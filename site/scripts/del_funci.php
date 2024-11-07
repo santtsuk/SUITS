@@ -6,10 +6,11 @@
 
         $id = $_GET['id'];
         
-            $sql = "UPDATE funcionarios SET status = 'Inativo' WHERE id = '$id'"; 
-            $query = $mysqli->query($sql);
+            $sql = "DELETE FROM funcionarios WHERE id = $id"; 
+            $sql = $mysqli->query($sql);
 
-            if ($query) { ?>
+
+            if ($sql) { ?>
                 <script language='javascript'>
                     Swal.fire({
                         position: 'center',

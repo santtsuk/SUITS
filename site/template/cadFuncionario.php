@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Cadastro Funcionarios</h4>
-                <a href="dashboard.php?r=telaFuncionarios" >Buscar Funcionarios</a>
+                <a href="dashboard.php?r=telaFuncionarios">Buscar Funcionarios</a>
             </div>
             <div class="card-body">
                 <form class="row g-3" method="POST" action="">
@@ -13,35 +13,37 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCep" class="form-label">CPF</label>
-                        <input type="text"  required id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="11">
+                        <input type="text" required id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="11">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 position-relative">
                         <label for="inputPerfil" class="form-label">Perfil</label>
                         <select required name="perfil" class="form-control" id="opcao" onchange="habilitarCampo()">
-                            <option value="">Selecione um perfil</option>
+                            <option value="">Selecione um perfil<i class="fas fa-chevron-down position-absolute" style="right: 15px; top: 45px; pointer-events: none;"></i></option>
                             <option value="advogado">Advogado</option>
                             <option value="secretaria">Secretaria</option>
                         </select>
+
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Número da OAB</label>
-                        <input type="num" id="numOAB" required name="numeroOAB" class="form-control" disabled>
+                        <input type="num" id="numOAB" required name="numeroOAB" class="form-control" disabled placeholder="000000/UF">
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Email</label>
-                        <input type="text"  required name="email" class="form-control">
+                        <input type="text" required name="email" class="form-control">
                     </div>
-                    <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Senha</label>
-                        <input type="text"  required name="senha" class="form-control">
+                    <div class="col-md-6 position-relative">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
+                        <i class="fas fa-eye position-absolute toggle-password" style="right: 15px; top: 45px; cursor: pointer;"></i>
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Telefone</label>
-                        <input type="text" id="telefone"  required name="telefone" class="form-control" placeholder="(00)00000-0000" >
+                        <input type="text" id="telefone" required name="telefone" class="form-control" placeholder="(00)00000-0000">
                     </div>
                     <div class="col-md-6">
                         <label for="inputCep" class="form-label">CEP</label>
-                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000"  onblur="pesquisacep(this.value)">
+                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000" onblur="pesquisacep(this.value)">
                     </div>
                     <div class="col-md-6">
                         <label for="inputRua" class="form-label">Número</label>
@@ -74,15 +76,31 @@
 </div>
 
 <script>
-function habilitarCampo(){
-    const select = document.getElementById("opcao");
-    const imput = document.getElementById("numOAB");
-    if(select.value === "advogado"){
-        imput.disabled = false;
-    }else{
-        imput.disabled = true;
+    function habilitarCampo() {
+        const select = document.getElementById("opcao");
+        const imput = document.getElementById("numOAB");
+        if (select.value === "advogado") {
+            imput.disabled = false;
+        } else {
+            imput.disabled = true;
+        }
     }
-}
+</script>
+<script>
+    document.querySelector('.toggle-password').addEventListener('click', function (e) {
+        const passwordInput = document.getElementById('senha');
+        const icon = e.target;
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -150,35 +168,35 @@ if (!empty($_POST)) {
     $estado = $mysqli->real_escape_string($_POST['estado']);
     $status = "Ativo";
 
-        $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,email,senha,telefone, cep, rua, bairro, cidade,numero, estado,status) 
+    $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,email,senha,telefone, cep, rua, bairro, cidade,numero, estado,status) 
                 VALUES ('$nome', '$cpf', '$perfil','$numeroOAB','$email', '$senha', '$telefone', '$cep', '$rua', '$bairro', '$cidade','$numero', '$estado','$status')";
-        $query = $mysqli->query($sql);
+    $query = $mysqli->query($sql);
 
-        if ($query) { ?>
-            <script language='javascript'>
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Cadastro Salvo com Sucesso!',
-                    confirmButtonText: 'OK',
-                    backdrop: true
-                }).then(okay => {
-                    if (okay) {
-                        window.location.href = 'dashboard.php?r=cadFuncionario';
-                    }
-                });
-            </script>";
-        <?php } else { ?>
-            <script language='javascript'>
-                Swal.fire({
-                    position: 'center',
-                    title: 'Error!',
-                    text: 'Houve um erro ao processar seu cadastro.',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                    backdrop: true
-                });
-            </script>";
+    if ($query) { ?>
+        <script language='javascript'>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Cadastro Salvo com Sucesso!',
+                confirmButtonText: 'OK',
+                backdrop: true
+            }).then(okay => {
+                if (okay) {
+                    window.location.href = 'dashboard.php?r=cadFuncionario';
+                }
+            });
+        </script>";
+    <?php } else { ?>
+        <script language='javascript'>
+            Swal.fire({
+                position: 'center',
+                title: 'Error!',
+                text: 'Houve um erro ao processar seu cadastro.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                backdrop: true
+            });
+        </script>";
 <?php }
-    }
+}
 ?>

@@ -35,7 +35,7 @@ CREATE TABLE `funcionarios` (
   `nome` varchar(50) NOT NULL,
   `cpf` varchar(15) NOT NULL,
   `perfil` varchar(20) NOT NULL,
-  `numero_oab` varchar(8) NOT NULL,
+  `numero_oab` varchar(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `telefone` varchar(14) NOT NULL,

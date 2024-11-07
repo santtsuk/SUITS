@@ -4,8 +4,11 @@ include "head.php";
 include "menu.php";
 include "navbar.php";
 $nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : 'Visitante';
+?>
+<div class="row"><?php
 echo "<h1> Bem-vindo, $nome!</h1>";
 ?>
+</div>
 <div class="content">
     <?php
     include "card.php";
