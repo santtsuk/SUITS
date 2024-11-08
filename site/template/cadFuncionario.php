@@ -8,61 +8,60 @@
             <div class="card-body">
                 <form class="row g-3" method="POST" action="">
                     <div class="col-md-12">
-                        <label for="inputEmail4" class="form-label">Nome</label>
-                        <input type="text" required name="nome" class="form-control">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" required name="nome" id="nome" class="form-control">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCep" class="form-label">CPF</label>
+                        <label for="cpf" class="form-label">CPF</label>
                         <input type="text" required id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="11">
                     </div>
                     <div class="col-md-6 position-relative">
-                        <label for="inputPerfil" class="form-label">Perfil</label>
+                        <label for="opcao" class="form-label">Perfil</label>
                         <select required name="perfil" class="form-control" id="opcao" onchange="habilitarCampo()">
                             <option value="">Selecione um perfil<i class="fas fa-chevron-down position-absolute" style="right: 15px; top: 45px; pointer-events: none;"></i></option>
                             <option value="advogado">Advogado</option>
                             <option value="secretaria">Secretaria</option>
                         </select>
-
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Número da OAB</label>
+                        <label for="numOAB" class="form-label">Número da OAB</label>
                         <input type="num" id="numOAB" required name="numeroOAB" class="form-control" disabled placeholder="000000/UF">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Email</label>
-                        <input type="text" required name="email" class="form-control">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" required name="email" id="email" class="form-control">
                     </div>
                     <div class="col-md-6 position-relative">
-                        <label for="password" class="form-label">Senha</label>
-                        <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" id="senha" class="form-control" placeholder="Digite sua senha" required>
                         <i class="fas fa-eye position-absolute toggle-password" style="right: 15px; top: 45px; cursor: pointer;"></i>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Telefone</label>
+                        <label for="telefone" class="form-label">Telefone</label>
                         <input type="text" id="telefone" required name="telefone" class="form-control" placeholder="(00)00000-0000">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCep" class="form-label">CEP</label>
-                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000" onblur="pesquisacep(this.value)">
+                        <label for="cep" class="form-label">CEP</label>
+                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000" onblur="pesquisacep(this.value)" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputRua" class="form-label">Número</label>
+                        <label for="numero" class="form-label">Número</label>
                         <input type="text" required name="numero" id="numero" class="form-control">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputRua" class="form-label">Rua</label>
+                        <label for="rua" class="form-label">Rua</label>
                         <input type="text" required name="rua" id="rua" class="form-control" readonly>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputBairro" class="form-label">Bairro</label>
+                        <label for="bairro" class="form-label">Bairro</label>
                         <input type="text" required name="bairro" id="bairro" class="form-control" readonly>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCidade" class="form-label">Cidade</label>
+                        <label for="cidade" class="form-label">Cidade</label>
                         <input type="text" required name="cidade" id="cidade" class="form-control" readonly>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputEstado" class="form-label">Estado</label>
+                        <label for="estado" class="form-label">Estado</label>
                         <input type="text" required name="estado" id="estado" class="form-control" readonly>
                     </div>
                     <div class="col-md-12">
@@ -72,7 +71,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <script>
@@ -86,6 +84,7 @@
         }
     }
 </script>
+
 <script>
     document.querySelector('.toggle-password').addEventListener('click', function (e) {
         const passwordInput = document.getElementById('senha');
@@ -195,8 +194,11 @@ if (!empty($_POST)) {
                 icon: 'error',
                 confirmButtonText: 'OK',
                 backdrop: true
+            }).then(okay => {
+                if (okay) {
+                    window.location.href = 'dashboard.php?r=cadFuncionario';
+                }
             });
         </script>";
-<?php }
-}
-?>
+    <?php }
+} ?>

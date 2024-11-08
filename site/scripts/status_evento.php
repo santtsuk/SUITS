@@ -2,20 +2,12 @@
 include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Verificar os valores recebidos
-    var_dump($_POST);  // Isso vai mostrar os valores recebidos no POST
-    die();
+    
+    var_dump($_POST);  
 
-    $eventoId = $_POST['evento_id'];
-    $status = (bool)$_POST['status'];  // Garantir que seja booleano
-    var_dump($status);  // Verificar o valor de $status
+    $evento_id = (int)$_POST['evento_id'];  
+    $status = (int)$_POST['status'];        
 
-    // Verificar se a conexão com o banco de dados foi bem-sucedida
-    if ($mysqli->connect_error) {
-        die("Conexão falhou: " . $mysqli->connect_error);
-    }
-
-    // Preparar a consulta
     $sql = "UPDATE tarefas SET status = ? WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
 
@@ -23,10 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Erro ao preparar a consulta: " . $mysqli->error);
     }
 
-    // Vincular os parâmetros
-    $stmt->bind_param("ii", $status, $eventoId);  // 1 - Concluído, 0 - Não Concluído
+    $stmt->bind_param("ii", $status, $evento_id); 
 
-    // Executar a consulta
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
             echo "Status atualizado com sucesso!";
@@ -37,9 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Erro na execução do SQL: " . $stmt->error;
         echo "Erro do MySQL: " . $mysqli->error;
     }
-    
 
-    // Fechar a declaração e a conexão
     $stmt->close();
     $mysqli->close();
 }

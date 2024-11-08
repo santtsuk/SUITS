@@ -1,13 +1,14 @@
-
 <?php
+// Correção nas atribuições de $perfil e $id
+$perfil = isset($_SESSION['perfil']) ? $_SESSION['perfil'] : null;
+$id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Visitante';
 
 function dadosFunc(){
     include "config.php";
-    $rs = "SELECT * FROM funcionarios ";
+    $rs = "SELECT * FROM funcionarios";
     $query = $mysqli->query($rs);
 
-    return ($query);
-
+    return $query;
 }
 
 function processosAtivos(){
@@ -17,19 +18,17 @@ function processosAtivos(){
     $query = $mysqli->query($rs);
     $total = $query->num_rows;
 
-    return ($total);
-
+    return $total;
 }
 
-function tarefasAtivos(){
+function tarefasPendentes(){
     include "config.php";
 
-    $rs = "SELECT * FROM tarefas WHERE status = 'Ativo'";
+    $rs = "SELECT * FROM tarefas WHERE status = 0";  
     $query = $mysqli->query($rs);
     $total = $query->num_rows;
 
-    return ($total);
-
+    return $total;
 }
 
 function funcionariosAtivos(){
@@ -39,8 +38,7 @@ function funcionariosAtivos(){
     $query = $mysqli->query($rs);
     $total = $query->num_rows;
 
-    return ($total);
-
+    return $total;
 }
 
 function clienteAtivos(){
@@ -50,11 +48,72 @@ function clienteAtivos(){
     $query = $mysqli->query($rs);
     $total = $query->num_rows;
 
-    return ($total);
+    return $total;
+}
 
+function tarefasPendentesbyID(){
+    include "config.php";
+    global $perfil, $id; 
+
+    // Filtro para mostrar apenas as tarefas pendentes do advogado logado, se o perfil for "advogado"
+    if ($perfil === 'advogado') {
+        $rs = "SELECT * FROM tarefas WHERE status = 0 AND id_usuario = $id"; 
+    } else {
+        $rs = "SELECT * FROM tarefas WHERE status = 0";
+    }
+    
+    $query = $mysqli->query($rs);
+    $total = $query->num_rows;
+
+    return $total;
+}
+
+function tarefasConcluidasbyID(){
+    include "config.php";
+    global $perfil, $id; 
+
+    // Filtro para mostrar apenas as tarefas concluídas do advogado logado, se o perfil for "advogado"
+    if ($perfil === 'advogado') {
+        $rs = "SELECT * FROM tarefas WHERE status = 1 AND id_usuario = $id"; 
+    } else {
+        $rs = "SELECT * FROM tarefas WHERE status = 1";
+    }
+
+    $query = $mysqli->query($rs);
+    $total = $query->num_rows;
+
+    return $total;
+}
+
+function calcularEficiencia() {
+    $pendentes = tarefasPendentesbyID();
+    $concluidas = tarefasConcluidasbyID();
+    $totalTarefas = $pendentes + $concluidas;
+    if ($totalTarefas === 0) {
+        return 0;
+    } 
+    $eficiencia = ($concluidas / $totalTarefas) * 100;
+    return number_format($eficiencia, 2);
 }
 
 
+function tarefasAtrasadas() {
+    include "config.php";
+  
+    $dataAtual = date('Y-m-d'); 
+    $rs = "SELECT * FROM tarefas WHERE status = 0 AND dataFinal < '$dataAtual'";
+    $query = $mysqli->query($rs);
+
+    $total = $query->num_rows;
+    return $total;
+}
+
+
+$totalTarefas = tarefasPendentesbyID() + tarefasConcluidasbyID();
+$pendentesPercent = $totalTarefas > 0 ? (tarefasPendentesbyID() / $totalTarefas) * 100 : 0;
+$concluidasPercent = $totalTarefas > 0 ? (tarefasConcluidasbyID() / $totalTarefas) * 100 : 0;
+$atrasadasPercent = $totalTarefas > 0 ? (tarefasAtrasadas() / $totalTarefas) * 100 : 0;
+$eficienciaPercent = calcularEficiencia();
 
 
 ?>

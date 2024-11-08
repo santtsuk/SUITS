@@ -64,9 +64,11 @@ CREATE TABLE tarefas (
     cliente VARCHAR(255) NOT NULL,
     descricao TEXT,
     cor VARCHAR(7),
-    id_usuario INT, 
-    FOREIGN KEY (id_usuario) REFERENCES funcionarios(id) 
-);
+    status TINYINT(1) DEFAULT 0,  
+    id_usuario INT,
+    FOREIGN KEY (id_usuario) REFERENCES funcionarios(id)
+) CHARSET=utf8mb4;
+
 
 INSERT INTO tarefa (titulo, dataInicio, horarioInicio, dataFinal, horarioFinal, cliente, descricao, cor, id_usuario)
 VALUES 

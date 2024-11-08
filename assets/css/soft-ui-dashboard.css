@@ -872,6 +872,23 @@ progress {
   margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
 
+
+.welcome-message {
+  text-align: center;
+  margin: 20px 0; 
+  font-size: 2rem; 
+  font-weight: bold;
+  color: #333; 
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+
+
 .row>* {
   flex-shrink: 0;
   width: 100%;
