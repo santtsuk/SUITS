@@ -42,6 +42,7 @@
                             document.getElementById('visualizar_inicio').innerHTML = info.event.start.toLocaleString();
                             document.getElementById('visualizar_fim').innerHTML = info.event.end ? info.event.end.toLocaleString() : 'Data não disponível';
                             document.getElementById('visualizar_descricao').innerHTML = info.event.extendedProps.descricao;
+                             document.getElementById('visualizar_cliente').innerHTML = info.event.extendedProps.cliente;
                             const usuario = info.event.extendedProps.id_usuario || 'Não disponível';
                             document.getElementById('visualizar_usuario').innerHTML = usuario;
 
@@ -115,6 +116,10 @@
                     <dl class="row">
                         <dt class="col-sm-3">Descrição:</dt>
                         <dd class="col-sm-9" id="visualizar_descricao"></dd>
+                    </dl>
+                    <dl class="row">
+                        <dt class="col-sm-3">Cliente:</dt>
+                        <dd class="col-sm-9" id="visualizar_cliente"></dd>
                     </dl>
                     <dl class="row">
                         <dt class="col-sm-3">Responsável:</dt>

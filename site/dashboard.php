@@ -30,8 +30,8 @@ echo "<h1> Bem-vindo, $nome!</h1>";
                             case 'cadProcesso':
                                 include "template/cadProcesso.php";
                                 break;
-                            case 'Agendamento':
-                                include "template/Agendamento.php";
+                            case 'cadTarefa':
+                                include "template/cadTarefa.php";
                                 break;
                             case 'minhaAgenda':
                                 include "template/minhaAgenda.php";

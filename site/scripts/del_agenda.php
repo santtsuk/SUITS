@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
     $id = $_POST['id']; 
 
     
-    $query = "DELETE FROM agendamentos WHERE id = ?";
+    $query = "DELETE FROM tarefas WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $stmt->bind_param('i', $id); 
 
