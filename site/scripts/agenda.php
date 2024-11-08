@@ -7,7 +7,7 @@ include('config.php');
 if ($perfil === 'advogado' && $id_user !== null) {
     
     $query = "SELECT ag.id, ag.titulo AS title, ag.cor AS color, CONCAT(ag.dataInicio, ' ', ag.horarioInicio) AS start, 
-              CONCAT(ag.dataFinal, ' ', ag.horarioFinal) AS end, ag.descricao,ag.cliente, ag.id_usuario, f.nome AS nome_usuario
+              CONCAT(ag.dataFinal, ' ', ag.horarioFinal) AS end, ag.descricao,ag.cliente,ag.status, ag.id_usuario, f.nome AS nome_usuario
               FROM tarefas ag
               LEFT JOIN funcionarios f ON ag.id_usuario = f.id  
               WHERE f.perfil = 'advogado' AND f.id = ?";
@@ -17,7 +17,7 @@ if ($perfil === 'advogado' && $id_user !== null) {
 } else {
     
     $query = "SELECT ag.id, ag.titulo AS title, ag.cor AS color, CONCAT(ag.dataInicio, ' ', ag.horarioInicio) AS start, 
-              CONCAT(ag.dataFinal, ' ', ag.horarioFinal) AS end, ag.descricao,ag.cliente, ag.id_usuario, f.nome AS nome_usuario
+              CONCAT(ag.dataFinal, ' ', ag.horarioFinal) AS end, ag.descricao,ag.cliente ,ag.status, ag.id_usuario, f.nome AS nome_usuario
               FROM tarefas ag
               LEFT JOIN funcionarios f ON ag.id_usuario = f.id";
     
@@ -47,6 +47,7 @@ if ($results_agenda) {
             'descricao' => $row['descricao'],
             'cliente'=> $row['cliente'],
             'id_usuario' => $row['nome_usuario'],
+            'status' => $row['status'],
         ];
     }
     echo json_encode($events);
