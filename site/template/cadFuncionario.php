@@ -168,7 +168,7 @@ if (!empty($_POST)) {
     $estado = $mysqli->real_escape_string($_POST['estado']);
     $status = "Ativo";
 
-    $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,email,senha,telefone, cep, rua, bairro, cidade,numero, estado,status) 
+    $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,email,  senha, telefone, cep, rua, bairro, cidade,numero, estado, status) 
                 VALUES ('$nome', '$cpf', '$perfil','$numeroOAB','$email', '$senha', '$telefone', '$cep', '$rua', '$bairro', '$cidade','$numero', '$estado','$status')";
     $query = $mysqli->query($sql);
 

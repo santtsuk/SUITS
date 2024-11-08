@@ -39,9 +39,7 @@ echo "<h1> Bem-vindo, $nome!</h1>";
                             case 'telaFuncionarios':
                                 include "template/telaFuncionarios.php";
                                 break;
-
                             default:
-
                                 break;
                         }
                     }
