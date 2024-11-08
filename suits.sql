@@ -30,13 +30,52 @@ USE suits;
 -- Estrutura para tabela `funcionarios`
 --
 
-CREATE TABLE agendamentos (
-    titulo VARCHAR(100) NOT NULL,
-    data DATE NOT NULL,
-    horario TIME NOT NULL,
-    cliente VARCHAR(200) NOT NULL,
-    descricao VARCHAR(200) NOT NULL
+CREATE TABLE clientes (  
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+    nome VARCHAR(100) NOT NULL,  
+    cpf VARCHAR(14) NOT NULL UNIQUE,  
+    data_nascimento DATE NOT NULL,  
+    nascionalidade VARCHAR(50) NOT NULL,  
+    estado_civil VARCHAR(20) NOT NULL,  
+    profissao VARCHAR(50) NOT NULL,  
+    email VARCHAR(100) NOT NULL UNIQUE,  
+    telefone VARCHAR(15) NOT NULL,  
+    cep VARCHAR(10) NOT NULL,  
+    rua VARCHAR(100) NOT NULL,  
+    bairro VARCHAR(50) NOT NULL,  
+    cidade VARCHAR(50) NOT NULL,  
+    numero VARCHAR(10) NOT NULL,  
+    estado VARCHAR(2) NOT NULL,  
+    status VARCHAR(10) NOT NULL  
 );
+
+select *
+from clientes;
+
+select * from tarefas;
+
+CREATE TABLE tarefas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    dataInicio DATE NOT NULL,
+    horarioInicio TIME NOT NULL,
+    dataFinal DATE NOT NULL,
+    horarioFinal TIME NOT NULL,
+    cliente VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    cor VARCHAR(7),
+    id_usuario INT, 
+    FOREIGN KEY (id_usuario) REFERENCES funcionarios(id) 
+);
+
+INSERT INTO tarefa (titulo, dataInicio, horarioInicio, dataFinal, horarioFinal, cliente, descricao, cor, id_usuario)
+VALUES 
+('Reunião com cliente X', '2024-11-10', '10:00:00', '2024-11-10', '12:00:00', 'Cliente X', 'Reunião para discutir o projeto', '#FF5733', 1);
+INSERT INTO tarefa (titulo, dataInicio, horarioInicio, dataFinal, horarioFinal, cliente, descricao, cor, id_usuario)
+VALUES 
+('Reunião de equipe', '2024-11-11', '14:00:00', '2024-11-11', '16:00:00', 'Equipe interna', 'Reunião semanal de alinhamento de tarefas', '#33FF57', 2);
+
+
 
 
 CREATE TABLE processos (
