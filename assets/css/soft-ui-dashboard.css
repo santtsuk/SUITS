@@ -785,7 +785,14 @@ progress {
   overflow-x: auto;
 }
 
-
+    .status-ativo {
+        color: green;
+        font-weight: bold;
+    }
+    .status-inativo {
+        color: red;
+        font-weight: bold;
+    }
 
 .container,
 .container-fluid,

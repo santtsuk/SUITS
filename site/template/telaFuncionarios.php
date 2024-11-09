@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Suits</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -11,7 +26,6 @@
                             <th style="text-align: center;"> Nome</th>
                             <th style="text-align: center;">CPF</th>
                             <th style="text-align: center;">Perfil</th>
-                            <th style="text-align: center;">Número da OAB</th>
                             <th style="text-align: center;">Email</th>
                             <th style="text-align: center;">Telefone</th>
                             <th style="text-align: center;">Status</th>
@@ -27,7 +41,6 @@
                                 <td style="text-align: center;"><?php echo $dados['nome']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['cpf']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['perfil']; ?></td>
-                                <td style="text-align: center;"><?php echo $dados['numero_oab']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['email']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['telefone']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['status']; ?></td>
@@ -37,15 +50,21 @@
                                         data-cpf="<?php echo $dados['cpf']; ?>"
                                         data-perfil="<?php echo $dados['perfil']; ?>"
                                         data-numeroOAB="<?php echo $dados['numero_oab']; ?>"
+                                        data-especializacao="<?php echo $dados['especializacao']; ?>"
                                         data-email="<?php echo $dados['email']; ?>"
                                         data-telefone="<?php echo $dados['telefone']; ?>"
                                         data-cep="<?php echo $dados['cep']; ?>"
+                                        data-rua="<?php echo $dados['rua']; ?>"
+                                        data-bairro="<?php echo $dados['bairro']; ?>"
+                                        data-cidade="<?php echo $dados['cidade']; ?>"
+                                        data-estado="<?php echo $dados['estado']; ?>"
                                         data-numero="<?php echo $dados['numero']; ?>"
-                                        data-status="<?php echo $dados['status']; ?>"><i class="fa fa-pencil"></i></button>
+                                        data-status="<?php echo $dados['status']; ?>"><i class="fa fa-chevron-down"></i></button>
 
-                                    <a href="scripts/del_funci.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger" title="Excluir">
+                                    <a href="scripts/del_funci.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger" title="Excluir" id="delFunci">
                                         <i class="fa fa-trash"></i>
                                     </a>
+
                                 </td>
                             </tr>
                         <?php
@@ -58,7 +77,6 @@
                             <th style="text-align: center;"> Nome</th>
                             <th style="text-align: center;">CPF</th>
                             <th style="text-align: center;">Perfil</th>
-                            <th style="text-align: center;">Número da OAB</th>
                             <th style="text-align: center;">Email</th>
                             <th style="text-align: center;">Telefone</th>
                             <th style="text-align: center;">Status</th>
@@ -71,106 +89,220 @@
     </div>
 </div>
 
+
 <div class="modal" tabindex="-1" id="Modalfunci">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar Funcionario</h5>
+                <h5 class="modal-title">Detalhes do Funcionário</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row g-3" method="POST" action="scripts/atualizar_funci.php">
+                <small class="text-muted">Clique duas vezes no campo para editar</small>
+                <form id="modalFunci" class="row g-3" method="POST" action="scripts/atualizar_funci.php">
+                    <input type="hidden" name="id" value="">
                     <div class="col-md-12">
-                        <label for="inputEmail4" class="form-label">Nome</label>
-                        <input type="text" required name="nome" class="form-control" readonly>
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" name="nome" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCep" class="form-label">CPF</label>
-                        <input type="text" required id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14" readonly>
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPerfil" class="form-label">Perfil</label>
-                        <select required name="perfil" class="form-control" id="opcao" onchange="habilitarCampo()">
+                        <label for="perfil" class="form-label">Perfil</label>
+                        <select name="perfil" class="form-control" id="opcao" onchange="habilitarCampo()" ondblclick="tornarEditavel(this)">
                             <option value="">Selecione um perfil</option>
                             <option value="advogado">Advogado</option>
                             <option value="secretaria">Secretaria</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Número da OAB</label>
-                        <input type="num" id="numOAB" required name="numeroOAB" class="form-control" disabled>
+                        <label for="numeroOAB" class="form-label">Número da OAB</label>
+                        <input type="text" id="numOAB" name="numeroOAB" class="form-control" readonly ondblclick="tornarEditavel(this)">
+                    </div>
+                    <div class="col-md-6 position-relative">
+                        <label for="especializacao" class="form-label">Especialização</label>
+                        <select required name="especializacao" class="form-control" id="especializacao"  readonly ondblclick="tornarEditavel(this)">
+                            <option value="">Selecione uma especialização</option>
+                            <option value="direito_civil">Direito Civil</option>
+                            <option value="direito_penal">Direito Penal</option>
+                            <option value="direito_trabalhista">Direito Trabalhista</option>
+                            <option value="direito_tributario">Direito Tributário</option>
+                            <option value="direito_empresarial">Direito Empresarial</option>
+                            <option value="direito_administrativo">Direito Administrativo</option>
+                            <option value="direito_ambiental">Direito Ambiental</option>
+                            <option value="direito_familia">Direito de Família</option>
+                            <option value="direito_internacional">Direito Internacional</option>
+                            <option value="direito_consumidor">Direito do Consumidor</option>
+                            <option value="direito_imobiliario">Direito Imobiliário</option>
+                            <option value="direito_digital">Direito Digital</option>
+                            <option value="direito_bancario">Direito Bancário</option>
+                            <option value="direito_previdenciario">Direito Previdenciário</option>
+                            <option value="direito_propriedade_intelectual">Direito de Propriedade Intelectual</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="email" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Email</label>
-                        <input type="text" required name="email" class="form-control">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" id="telefone" name="telefone" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Telefone</label>
-                        <input type="text" id="telefone" required name="telefone" class="form-control" placeholder="(00)00000-0000">
+                        <label for="cep" class="form-label">CEP</label>
+                        <input type="text" id="cep" name="cep" class="form-control" onchange="pesquisacep(this.value)" readonly ondblclick="tornarEditavel(this)">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="numero" class="form-label">Número</label>
+                        <input type="text" name="numero" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCep" class="form-label">CEP</label>
-                        <input type="text" id="cep" required name="cep" class="form-control" placeholder="00000-000" onblur="pesquisacep(this.value)">
+                        <label for="rua" class="form-label">Rua</label>
+                        <input type="text" id="rua" name="rua" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputRua" class="form-label">Número</label>
-                        <input type="text" required name="numero" id="numero" class="form-control">
+                        <label for="bairro" class="form-label">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputRua" class="form-label">Rua</label>
-                        <input type="text" required name="rua" id="rua" class="form-control" readonly>
+                        <label for="cidade" class="form-label">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputBairro" class="form-label">Bairro</label>
-                        <input type="text" required name="bairro" id="bairro" class="form-control" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputCidade" class="form-label">Cidade</label>
-                        <input type="text" required name="cidade" id="cidade" class="form-control" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputEstado" class="form-label">Estado</label>
-                        <input type="text" required name="estado" id="estado" class="form-control" readonly>
+                        <label for="estado" class="form-label">Estado</label>
+                        <input type="text" id="estado" name="estado" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
-
     </div>
 </div>
+<script>
+    document.getElementById('modalFunci').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Confirmar Alterações',
+            text: "Tem certeza de que deseja salvar as alterações?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, salvar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.submit();
+            }
+        });
+    });
+
+    document.getElementById('delFunci').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Confirmar Exclusão',
+            text: "Tem certeza de que deseja excluir este funcionário?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = event.target.href;
+            }
+        });
+    });
+</script>
+
+<script>
+    function tornarEditavel(campo) {
+        campo.readOnly = false;
+        campo.classList.add("editavel");
+    }
+
+
+    var modal = document.getElementById('Modalfunci');
+    modal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget;
+
+
+        var id = button.getAttribute('data-id');
+        var nome = button.getAttribute('data-nome');
+        var cpf = button.getAttribute('data-cpf');
+        var perfil = button.getAttribute('data-perfil');
+        var numeroOAB = button.getAttribute('data-numeroOAB');
+        var especializacao = button.getAttribute('data-especializacao');
+        var email = button.getAttribute('data-email');
+        var telefone = button.getAttribute('data-telefone');
+        var cep = button.getAttribute('data-cep');
+        var numero = button.getAttribute('data-numero');
+        var rua = button.getAttribute('data-rua');
+        var bairro = button.getAttribute('data-bairro');
+        var cidade = button.getAttribute('data-cidade');
+        var estado = button.getAttribute('data-estado');
+
+
+        modal.querySelector('input[name="id"]').value = id;
+        modal.querySelector('input[name="nome"]').value = nome;
+        modal.querySelector('input[name="cpf"]').value = cpf;
+        modal.querySelector('select[name="perfil"]').value = perfil;
+        modal.querySelector('input[name="numeroOAB"]').value = numeroOAB;
+        modal.querySelector('select[name="especializacao"]').value = especializacao;
+        modal.querySelector('input[name="email"]').value = email;
+        modal.querySelector('input[name="telefone"]').value = telefone;
+        modal.querySelector('input[name="cep"]').value = cep;
+        modal.querySelector('input[name="numero"]').value = numero;
+        modal.querySelector('input[name="rua"]').value = rua;
+        modal.querySelector('input[name="bairro"]').value = bairro;
+        modal.querySelector('input[name="cidade"]').value = cidade;
+        modal.querySelector('input[name="estado"]').value = estado;
+    });
+</script>
+
+
 
 
 <script>
     function habilitarCampo() {
         const select = document.getElementById("opcao");
         const imput = document.getElementById("numOAB");
+        const imputEsp = document.getElementById("especializacao");
         if (select.value === "advogado") {
             imput.disabled = false;
+            imputEsp.disabled = false;
         } else {
             imput.disabled = true;
+            imputEsp.disabled = true;
         }
     }
 </script>
 
 <script>
     function limpa_formulário_cep() {
-        document.getElementById('rua').value = "";
-        document.getElementById('bairro').value = "";
-        document.getElementById('cidade').value = "";
-        document.getElementById('estado').value = "";
+        document.querySelector('#Modalfunci #rua').value = "";
+        document.querySelector('#Modalfunci #bairro').value = "";
+        document.querySelector('#Modalfunci #cidade').value = "";
+        document.querySelector('#Modalfunci #estado').value = "";
     }
 
     function meu_callback(conteudo) {
         if (!("erro" in conteudo)) {
-            document.getElementById('rua').value = conteudo.logradouro;
-            document.getElementById('bairro').value = conteudo.bairro;
-            document.getElementById('cidade').value = conteudo.localidade;
-            document.getElementById('estado').value = conteudo.uf;
+            document.querySelector('#Modalfunci #rua').value = conteudo.logradouro;
+            document.querySelector('#Modalfunci #bairro').value = conteudo.bairro;
+            document.querySelector('#Modalfunci #cidade').value = conteudo.localidade;
+            document.querySelector('#Modalfunci #estado').value = conteudo.uf;
         } else {
             limpa_formulário_cep();
             alert("CEP não encontrado.");
@@ -179,13 +311,13 @@
 
     function pesquisacep(valor) {
         var cep = valor.replace(/\D/g, '');
-        if (cep != "") {
+        if (cep !== "") {
             var validacep = /^[0-9]{8}$/;
             if (validacep.test(cep)) {
-                document.getElementById('rua').value = "...";
-                document.getElementById('bairro').value = "...";
-                document.getElementById('cidade').value = "...";
-                document.getElementById('estado').value = "...";
+                document.querySelector('#Modalfunci #rua').value = "...";
+                document.querySelector('#Modalfunci #bairro').value = "...";
+                document.querySelector('#Modalfunci #cidade').value = "...";
+                document.querySelector('#Modalfunci #estado').value = "...";
 
                 var script = document.createElement('script');
                 script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
@@ -198,42 +330,4 @@
             limpa_formulário_cep();
         }
     }
-</script>
-
-<script>
-    var modal = document.getElementById('Modalfunci');
-    modal.addEventListener('show.bs.modal', function(event) {
-        var button = event.relatedTarget;
-
-        var id = button.getAttribute('data-id');
-        var nome = button.getAttribute('data-nome');
-        var cpf = button.getAttribute('data-cpf');
-        var perfil = button.getAttribute('data-perfil');
-        var numeroOAB = button.getAttribute('data-numeroOAB');
-        var email = button.getAttribute('data-email');
-        var telefone = button.getAttribute('data-telefone');
-        var status = button.getAttribute('data-status');
-        var cep = button.getAttribute('data-cep');
-        var numero = button.getAttribute('data-numero');
-
-        console.log('Nome:', nome);
-        console.log('CPF:', cpf);
-    
-
-        modal.querySelector('input[name="nome"]').value = nome;
-        modal.querySelector('input[name="cpf"]').value = cpf;
-        modal.querySelector('select[name="perfil"]').value = perfil;
-        modal.querySelector('input[name="numeroOAB"]').value = numeroOAB;
-        modal.querySelector('input[name="email"]').value = email;
-        modal.querySelector('input[name="telefone"]').value = telefone;
-        modal.querySelector('input[name="cep"]').value = cep;
-        modal.querySelector('input[name="numero"]').value = numero;
-
-        var form = modal.querySelector('form');
-        var idInput = document.createElement('input');
-        idInput.type = 'hidden';
-        idInput.name = 'id';
-        idInput.value = id;
-        form.appendChild(idInput);
-    });
 </script>

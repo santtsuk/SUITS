@@ -18,7 +18,7 @@
                     <div class="col-md-6 position-relative">
                         <label for="opcao" class="form-label">Perfil</label>
                         <select required name="perfil" class="form-control" id="opcao" onchange="habilitarCampo()">
-                            <option value="">Selecione um perfil<i class="fas fa-chevron-down position-absolute" style="right: 15px; top: 45px; pointer-events: none;"></i></option>
+                            <option value=""> Selecione um perfil </option>
                             <option value="advogado">Advogado</option>
                             <option value="secretaria">Secretaria</option>
                         </select>
@@ -27,6 +27,28 @@
                         <label for="numOAB" class="form-label">Número da OAB</label>
                         <input type="num" id="numOAB" required name="numeroOAB" class="form-control" disabled placeholder="000000/UF">
                     </div>
+                    <div class="col-md-6 position-relative">
+                        <label for="especializacao" class="form-label">Especialização </label>
+                        <select required name="especializacao" class="form-control" id="especializacao" disabled>
+                            <option value="">Selecione uma Especialização</option>
+                            <option value="direito_civil">Direito Civil</option>
+                            <option value="direito_penal">Direito Penal</option>
+                            <option value="direito_trabalhista">Direito Trabalhista</option>
+                            <option value="direito_tributario">Direito Tributário</option>
+                            <option value="direito_empresarial">Direito Empresarial</option>
+                            <option value="direito_administrativo">Direito Administrativo</option>
+                            <option value="direito_ambiental">Direito Ambiental</option>
+                            <option value="direito_familia">Direito de Família</option>
+                            <option value="direito_internacional">Direito Internacional</option>
+                            <option value="direito_consumidor">Direito do Consumidor</option>
+                            <option value="direito_imobiliario">Direito Imobiliário</option>
+                            <option value="direito_digital">Direito Digital</option>
+                            <option value="direito_bancario">Direito Bancário</option>
+                            <option value="direito_previdenciario">Direito Previdenciário</option>
+                            <option value="direito_propriedade_intelectual">Direito de Propriedade Intelectual</option>
+                        </select>
+                    </div>
+
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
                         <input type="text" required name="email" id="email" class="form-control">
@@ -77,16 +99,19 @@
     function habilitarCampo() {
         const select = document.getElementById("opcao");
         const imput = document.getElementById("numOAB");
+        const imputEsp = document.getElementById("especializacao");
         if (select.value === "advogado") {
             imput.disabled = false;
+            imputEsp.disabled = false;
         } else {
             imput.disabled = true;
+            imputEsp.disabled = true;
         }
     }
 </script>
 
 <script>
-    document.querySelector('.toggle-password').addEventListener('click', function (e) {
+    document.querySelector('.toggle-password').addEventListener('click', function(e) {
         const passwordInput = document.getElementById('senha');
         const icon = e.target;
 
@@ -156,6 +181,7 @@ if (!empty($_POST)) {
     $cpf = $mysqli->real_escape_string($_POST['cpf']);
     $perfil = $mysqli->real_escape_string($_POST['perfil']);
     $numeroOAB = $mysqli->real_escape_string($_POST['numeroOAB']);
+    $especializacao = $mysqli->real_escape_string($_POST['especializacao']);
     $email = $mysqli->real_escape_string($_POST['email']);
     $senha = $mysqli->real_escape_string($_POST['senha']);
     $telefone = $mysqli->real_escape_string($_POST['telefone']);
@@ -167,8 +193,8 @@ if (!empty($_POST)) {
     $estado = $mysqli->real_escape_string($_POST['estado']);
     $status = "Ativo";
 
-    $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,email,  senha, telefone, cep, rua, bairro, cidade,numero, estado, status) 
-                VALUES ('$nome', '$cpf', '$perfil','$numeroOAB','$email', '$senha', '$telefone', '$cep', '$rua', '$bairro', '$cidade','$numero', '$estado','$status')";
+    $sql = "INSERT INTO funcionarios (nome, cpf, perfil, numero_oab,especializacao,email,  senha, telefone, cep, rua, bairro, cidade,numero, estado, status) 
+                VALUES ('$nome', '$cpf', '$perfil','$numeroOAB','$especializacao','$email', '$senha', '$telefone', '$cep', '$rua', '$bairro', '$cidade','$numero', '$estado','$status')";
     $query = $mysqli->query($sql);
 
     if ($query) { ?>
@@ -200,5 +226,5 @@ if (!empty($_POST)) {
                 }
             });
         </script>";
-    <?php }
+<?php }
 } ?>

@@ -1,5 +1,5 @@
 <?php
-// Correção nas atribuições de $perfil e $id
+
 $perfil = isset($_SESSION['perfil']) ? $_SESSION['perfil'] : null;
 $id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Visitante';
 
@@ -55,7 +55,7 @@ function tarefasPendentesbyID(){
     include "config.php";
     global $perfil, $id; 
 
-    // Filtro para mostrar apenas as tarefas pendentes do advogado logado, se o perfil for "advogado"
+    
     if ($perfil === 'advogado') {
         $rs = "SELECT * FROM tarefas WHERE status = 0 AND id_usuario = $id"; 
     } else {
@@ -72,7 +72,7 @@ function tarefasConcluidasbyID(){
     include "config.php";
     global $perfil, $id; 
 
-    // Filtro para mostrar apenas as tarefas concluídas do advogado logado, se o perfil for "advogado"
+   
     if ($perfil === 'advogado') {
         $rs = "SELECT * FROM tarefas WHERE status = 1 AND id_usuario = $id"; 
     } else {
