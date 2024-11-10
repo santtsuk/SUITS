@@ -136,11 +136,28 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" id="excluirEvento">Excluir</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" id="fecharEvento" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const modal = document.getElementById("visualizarModal");
+        const closeModalBtn = document.getElementById("fecharEvento");
+
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+            location.reload(); 
+        };
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+                location.reload();
+            }
+        }
+    </script>
 
     <script>
         function atualizarStatus(checkbox) {
