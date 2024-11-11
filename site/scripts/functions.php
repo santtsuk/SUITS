@@ -99,11 +99,14 @@ function calcularEficiencia() {
 
 function tarefasAtrasadas() {
     include "config.php";
-  
-    $dataAtual = date('Y-m-d'); 
-    $rs = "SELECT * FROM tarefas WHERE status = 0 AND dataFinal < '$dataAtual'";
+    global $perfil, $id; 
+    $dataAtual = date('Y-m-d');
+    if ($perfil === 'advogado') {
+        $rs = "SELECT * FROM tarefas WHERE status = 0 AND dataFinal < '$dataAtual' AND id_usuario = $id"; 
+    } else {
+        $rs = "SELECT * FROM tarefas WHERE status = 0 AND dataFinal < '$dataAtual'";
+    }
     $query = $mysqli->query($rs);
-
     $total = $query->num_rows;
     return $total;
 }
