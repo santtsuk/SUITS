@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="senha" class="form-label">Senha</label>
-                        <input type="password" id="senha" class="form-control" placeholder="Digite sua senha" required>
+                        <input type="password" id="senha" name="senha" class="form-control" placeholder="Digite sua senha" required>
                         <i class="fas fa-eye position-absolute toggle-password" style="right: 15px; top: 45px; cursor: pointer;"></i>
                     </div>
                     <div class="col-md-6">
