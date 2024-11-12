@@ -211,3 +211,4 @@ $pendentesPercent = $totalTarefas > 0 ? (tarefasPendentesbyID() / $totalTarefas)
 $concluidasPercent = $totalTarefas > 0 ? (tarefasConcluidasbyID() / $totalTarefas) * 100 : 0;
 $atrasadasPercent = $totalTarefas > 0 ? (tarefasAtrasadas() / $totalTarefas) * 100 : 0;
 $eficienciaPercent = calcularEficiencia();
+
