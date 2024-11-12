@@ -30,11 +30,7 @@
 
                     <div class="col-md-6">
                         <label for="inputPerfil" class="form-label">Estado Civil</label>
-<<<<<<< Updated upstream
                         <select required name="estadocivil" class="form-control" id="opcao" onchange="habilitarCampo()">
-=======
-                        <select required name="estadocivil" class="form-control" id="estadoCivil" onchange="habilitarCampo()">
->>>>>>> Stashed changes
                             <option value="">Selecione</option>
                             <option value="solteiro">Solteiro(a)</option>
                             <option value="casado">Casado(a)</option>
@@ -44,11 +40,7 @@
 
                     <div class="col-md-6">
                         <label for="inputProfissao" class="form-label">Profissão</label>
-<<<<<<< Updated upstream
                         <select required name="profissao" class="form-control" id="opcao" onchange="habilitarCampo()">
-=======
-                        <select required name="profissao" class="form-control" id="profissao" onchange="habilitarCampo()">
->>>>>>> Stashed changes
                             <option value="">Selecione profissão</option>
                             <option value="secretario">Secretario(a)</option>
                             <option value="advogado">Advogado(a)</option>
@@ -161,15 +153,9 @@ if (!empty($_POST)) {
 
     $nome = $mysqli->real_escape_string($_POST['nome']);
     $cpf = $mysqli->real_escape_string($_POST['cpf']);
-<<<<<<< Updated upstream
     $datanascimento = $mysqli->real_escape_string($_POST['data_nascimento']);
     $nascionalidade = $mysqli->real_escape_string($_POST['nascionalidade']);
     $estadocivil = $mysqli->real_escape_string($_POST['estado_civil']);
-=======
-    $datanascimento = $mysqli->real_escape_string($_POST['datanascimento']);
-    $nascionalidade = $mysqli->real_escape_string($_POST['nascionalidade']);
-    $estadocivil = $mysqli->real_escape_string($_POST['estadocivil']);
->>>>>>> Stashed changes
     $profissao = $mysqli->real_escape_string($_POST['profissao']);
     $email = $mysqli->real_escape_string($_POST['email']);
     $telefone = $mysqli->real_escape_string($_POST['telefone']);

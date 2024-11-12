@@ -12,7 +12,7 @@
                         <i class="fas fa-user ni-circle-08 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                      1600
+                      <?php echo clienteAtivos()?>
                       </h5>
                       <span class="text-white text-sm">Clientes Ativos</span>
                     </div>
@@ -34,7 +34,7 @@
                         <i class="fas fa-file ni-active-40 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        357
+                      <?php echo processosAtivos()?>
                       </h5>
                       <span class="text-white text-sm">Processos Ativos</span>
                     </div>

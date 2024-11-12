@@ -39,7 +39,7 @@ function processosAtivos()
 {
     include "config.php";
 
-    $rs = "SELECT * FROM processos WHERE status = 'Ativo'";
+    $rs = "SELECT * FROM processos WHERE status = '1'";
     $query = $mysqli->query($rs);
     $total = $query->num_rows;
 

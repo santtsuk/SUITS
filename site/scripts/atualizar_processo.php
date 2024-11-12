@@ -25,12 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = mysqli_real_escape_string($mysqli, $_POST['data']);
     $horario = mysqli_real_escape_string($mysqli, $_POST['horario']);
     $vara = mysqli_real_escape_string($mysqli, $_POST['vara']);
-    
+    $status = mysqli_real_escape_string($mysqli, $_POST['status']);
+    if($status === 'arquivado'){
+        $status_update = 0;
+    }else{
+        $status_update = 1;
+    }
     $sql = "UPDATE processos SET 
             numero_processo = '$numero_processo', 
             data = '$data', 
             horario = '$horario', 
-            vara = '$vara'
+            vara = '$vara',
+            status = '$status_update'
             WHERE id = $id";
 
     
@@ -44,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 text: 'Processo atualizado com sucesso!',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '../dashboard.php?r=telaProcessos'; // Redireciona após sucesso
+                    window.location.href = '../dashboard.php?r=telaProcessos'; 
                 }
             });
         </script>";
@@ -55,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 text: 'Erro ao atualizar o processo!',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '../dashboard.php?r=telaProcessos'; // Redireciona em caso de erro
+                    window.location.href = '../dashboard.php?r=telaProcessos'; 
                 }
             });
         </script>";

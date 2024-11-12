@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-12">
                         <label for="usuario" class="form-label">Profissional Responsável</label>
-                        <select required name="usuario" class="form-control" id="usuario">
+                        <select name="usuario" class="form-control" id="usuario">
                             <option value="">Selecione o Profissional</option>
                             <?php
                             $usuarios = buscarFuncionarios();

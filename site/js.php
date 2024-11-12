@@ -201,6 +201,9 @@
     $('#tableFunci').DataTable({
         responsive: true
     });
+    $('#tableProcessos').DataTable({
+        responsive: true
+    });
   });
   
 </script>

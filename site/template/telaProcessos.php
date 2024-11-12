@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,6 @@
                             <th style="text-align: center;">Vara</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Editar</th>
-                            <th style="text-align: center;">Arquivar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,21 +40,20 @@
                         while ($dados = $query->fetch_array()) {
                         ?>
                             <tr>
+                                <td style="text-align: center;"><?php echo $dados['cliente_nome']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['numero_processo']; ?></td>
-                                <td style="text-align: center;"><?php echo $dados['data']; ?></td>
+                                <td style="text-align: center;"><?php echo date('d-m-Y', strtotime($dados['data'])); ?></td>
                                 <td style="text-align: center;"><?php echo $dados['horario']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['vara']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['status_process']; ?></td>
-                                <td style="text-align: center;"><?php echo $dados['cliente_nome']; ?></td>
-                                <td style="text-align: center;"><?php echo $dados['cliente_cpf']; ?></td>
                                 <td style="text-align: center;">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalProcesso" data-id="<?php echo $dados['id']; ?>"
+                                        data-cliente_nome="<?php echo $dados['cliente_nome']; ?>"
                                         data-numero_processo="<?php echo $dados['numero_processo']; ?>"
                                         data-data="<?php echo $dados['data']; ?>"
                                         data-horario="<?php echo $dados['horario']; ?>"
                                         data-vara="<?php echo $dados['vara']; ?>"
                                         data-status-process="<?php echo $dados['status_process']; ?>"
-                                        data-cliente_nome="<?php echo $dados['cliente_nome']; ?>"
                                         data-cliente_cpf="<?php echo $dados['cliente_cpf']; ?>"><i class="fa-solid fa fa-chevron-down"></i></button>
 
                                     <a href="scripts/del_processo.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger btn-del-processo" title="Excluir">
@@ -77,7 +75,6 @@
                             <th style="text-align: center;">Vara</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Editar</th>
-                            <th style="text-align: center;">Arquivar</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -157,9 +154,11 @@
         var data = button.getAttribute('data-data');
         var horario = button.getAttribute('data-horario');
         var vara = button.getAttribute('data-vara');
-        var status = button.getAttribute('data-status-process'); 
+        var status = button.getAttribute('data-status-process');
         var cliente_nome = button.getAttribute('data-cliente_nome');
         var cliente_cpf = button.getAttribute('data-cliente_cpf');
+
+        status = status.toLowerCase();
 
         modal.querySelector('input[name="id"]').value = id;
         modal.querySelector('input[name="numero_processo"]').value = numero_processo;
@@ -168,8 +167,6 @@
         modal.querySelector('input[name="vara"]').value = vara;
         modal.querySelector('input[name="cliente_nome"]').value = cliente_nome;
         modal.querySelector('input[name="cliente_cpf"]').value = cliente_cpf;
-
-        
         modal.querySelector('select[name="status"]').value = status;
     });
 </script>
@@ -183,13 +180,13 @@
                 event.preventDefault();
 
                 Swal.fire({
-                    title: 'Confirmar Exclusão',
-                    text: "Tem certeza de que deseja excluir este processo?",
+                    title: 'Confirmar Arquivamento',
+                    text: "Tem certeza de que deseja arquivar este processo?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sim, excluir',
+                    confirmButtonText: 'Sim, arquivar',
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
