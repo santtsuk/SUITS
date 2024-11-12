@@ -8,6 +8,7 @@ if (!empty($_POST)) {
     $vara = $_POST['vara'];
     $data = $_POST['data'];
 
+
     $sql = "INSERT INTO processos (cliente, horario, numero_processo, vara, data)
     VALUES ('$cliente','$horario','$numero_processo','$vara','$data')";
     $query = $mysqli->query($sql);

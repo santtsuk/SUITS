@@ -41,6 +41,9 @@ $nome = isset($_SESSION['nome']) ? $_SESSION['nome'] : 'Visitante';
                                 case 'telaFuncionarios':
                                     include "template/telaFuncionarios.php";
                                     break;
+                                case 'telaProcessos':
+                                    include "template/telaProcessos.php";
+                                    break;    
                                 default:
                                     break;
                             }

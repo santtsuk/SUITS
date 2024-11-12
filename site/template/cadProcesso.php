@@ -6,13 +6,19 @@
             </div>
             <div class="card-body">
                 <form id="formProcesso" class="row g-3" method="post" action="javascript:void(0);">
-                    <div class="col-md-12">
-                        <label for="cliente" class="form-label">Cliente</label>
-                        <input type="text" required name="cliente" id="cliente" class="form-control">
-                    </div>
+                    <label for="cliente" class="form-label">Cliente</label>
+                    <select required name="cliente" class="form-control" id="cliente">
+                        <option value="">Selecione um cliente</option>
+                        <?php
+                        $clientes = buscarCliente();
+                        foreach ($clientes as $cliente) {
+                            echo "<option value='" . $cliente['id'] . "'>" . $cliente['nome'] . " - " . $cliente['cpf'] . "</option>";
+                        }
+                        ?>
+                    </select>
                     <div class="col-md-6">
                         <label for="dataInicio" class="form-label">Data</label>
-                        <input type="date" required name="data" id="data" class="form-control" >
+                        <input type="date" required name="data" id="data" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <label for="horarioInicio" class="form-label">Horário</label>
@@ -38,8 +44,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-    $("#formProcesso").submit(function (e) {
+    $("#formProcesso").submit(function(e) {
         e.preventDefault();
         var formData = $(this).serialize();
 
@@ -47,7 +52,7 @@
             url: "../site/scripts/salvarProcesso.php",
             type: "POST",
             data: formData,
-            success: function (response) {
+            success: function(response) {
                 if (response == "success") {
                     Swal.fire({
                         icon: "success",
@@ -62,7 +67,7 @@
                     });
                 }
             },
-            error: function () {
+            error: function() {
                 Swal.fire({
                     icon: "error",
                     text: "Ocorreu um erro inesperado!"

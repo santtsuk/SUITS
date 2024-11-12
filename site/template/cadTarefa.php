@@ -28,13 +28,34 @@
                         <input type="time" required name="horarioFinal" id="horarioFinal" class="form-control">
                     </div>
                     <div class="col-md-11">
-                        <label for="cliente" class="form-label">Cliente</label>
-                        <input type="text" required name="cliente" id="cliente" class="form-control">
+                        <label for="processo" class="form-label">Processo</label>
+                        <select required name="processo" class="form-control" id="processo">
+                            <option value="">Selecione um Processo</option>
+                            <?php
+                            $processos = buscarProcessos();
+                            foreach ($processos as $processo) {
+                                echo "<option value='" . $processo['id'] . "'>" . $processo['numero_processo'] . " - " . $processo['nome_cliente'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="col-md-1">
-                        <label for="cor" class="form-label">Color picker</label>
+                        <label for="cor" class="form-label">Cor</label>
                         <input type="color" name="cor" id="cor" class="form-control form-control-color" value="#563d7c" title="Escolha uma cor">
                     </div>
+                    <div class="col-md-12">
+                        <label for="usuario" class="form-label">Profissional Responsável</label>
+                        <select required name="usuario" class="form-control" id="usuario">
+                            <option value="">Selecione o Profissional</option>
+                            <?php
+                            $usuarios = buscarFuncionarios();
+                            foreach ($usuarios as $usuario) {
+                                echo "<option value='" . $usuario['id'] . "'>" . $usuario['nome'] . " - " . $usuario['cpf'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
                     <div class="col-md-12">
                         <label for="descricao" class="form-label">Descrição</label>
                         <textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
@@ -59,13 +80,14 @@ if (!empty($_POST)) {
     $horarioInicio = $mysqli->real_escape_string($_POST['horarioInicio']);
     $dataFinal = $mysqli->real_escape_string($_POST['dataFinal']);
     $horarioFinal = $mysqli->real_escape_string($_POST['horarioFinal']);
-    $cliente = $mysqli->real_escape_string($_POST['cliente']);
+    $processo = $mysqli->real_escape_string($_POST['processo']);
     $descricao = $mysqli->real_escape_string($_POST['descricao']);
     $cor = $mysqli->real_escape_string($_POST['cor']);
+    $usuario = $mysqli->real_escape_string($_POST['usuario']);
 
-    $sql = "INSERT INTO tarefas (titulo, dataInicio, horarioInicio, dataFinal, horarioFinal, cliente, descricao, cor)
-            VALUES ('$titulo', '$dataInicio', '$horarioInicio', '$dataFinal', '$horarioFinal', '$cliente', '$descricao', '$cor')";
-    
+    $sql = "INSERT INTO tarefas (titulo, dataInicio, horarioInicio, dataFinal, horarioFinal, processo, descricao, cor, id_usuario)
+            VALUES ('$titulo', '$dataInicio', '$horarioInicio', '$dataFinal', '$horarioFinal', '$processo', '$descricao', '$cor', '$usuario')";
+
     $query = $mysqli->query($sql);
 
     if ($query) { ?>
@@ -93,6 +115,6 @@ if (!empty($_POST)) {
                 backdrop: true
             });
         </script>
-    <?php }
+<?php }
 }
 ?>

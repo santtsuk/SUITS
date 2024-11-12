@@ -233,8 +233,8 @@
     }
 
 
-    var modal = document.getElementById('Modalfunci');
-    modal.addEventListener('show.bs.modal', function(event) {
+        var modal = document.getElementById('Modalfunci');
+        modal.addEventListener('show.bs.modal', function(event) {
         var button = event.relatedTarget;
 
 

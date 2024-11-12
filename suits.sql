@@ -42,6 +42,17 @@ CREATE TABLE `funcionarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+CREATE TABLE processos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_processo VARCHAR(100) NOT NULL,
+    data DATE NOT NULL,
+    horario TIME NOT NULL,
+    vara VARCHAR(200) NOT NULL,
+    cliente INT,
+    status BOOLEAN DEFAULT 1,
+    FOREIGN KEY (cliente) REFERENCES clientes(id)
+);
+
 CREATE TABLE tarefas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
@@ -49,26 +60,14 @@ CREATE TABLE tarefas (
     horarioInicio TIME NOT NULL,
     dataFinal DATE NOT NULL,
     horarioFinal TIME NOT NULL,
-    cliente VARCHAR(255) NOT NULL,
+    processo INT,
     descricao TEXT,
     cor VARCHAR(7),
-    status TINYINT(1) DEFAULT 0,  
+    status TINYINT(1) DEFAULT 0,
     id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES funcionarios(id)
+    FOREIGN KEY (id_usuario) REFERENCES funcionarios(id),
+    FOREIGN KEY (processo) REFERENCES processos(id)
 ) CHARSET=utf8mb4;
-
-
-
-CREATE TABLE processos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    numero_processo VARCHAR(100) NOT NULL,
-    data DATE NOT NULL,
-    horario TIME NOT NULL,
-    vara VARCHAR(200) NOT NULL,
-    cliente VARCHAR(200) NOT NULL
-);
-
-
 
 
 select *
