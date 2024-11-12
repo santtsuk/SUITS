@@ -118,5 +118,3 @@ $concluidasPercent = $totalTarefas > 0 ? (tarefasConcluidasbyID() / $totalTarefa
 $atrasadasPercent = $totalTarefas > 0 ? (tarefasAtrasadas() / $totalTarefas) * 100 : 0;
 $eficienciaPercent = calcularEficiencia();
 
-
-?>
