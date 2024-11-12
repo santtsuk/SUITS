@@ -785,6 +785,15 @@ progress {
   overflow-x: auto;
 }
 
+    .status-ativo {
+        color: green;
+        font-weight: bold;
+    }
+    .status-inativo {
+        color: red;
+        font-weight: bold;
+    }
+
 .container,
 .container-fluid,
 .container-xxl,
@@ -869,6 +878,23 @@ progress {
   margin-right: calc(-0.5 * var(--bs-gutter-x));
   margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
+
+
+.welcome-message {
+  text-align: center;
+  margin: 20px 0; 
+  font-size: 2rem; 
+  font-weight: bold;
+  color: #333; 
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+
 
 .row>* {
   flex-shrink: 0;

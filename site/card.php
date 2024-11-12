@@ -58,9 +58,9 @@
                         <i class="fas fa-chart-line ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        2300
+                      <?php echo tarefasPendentes()?>
                       </h5>
-                      <span class="text-white text-sm">Tarefas Ativas</span>
+                      <span class="text-white text-sm">Tarefas Pendentes</span>
                     </div>
                     <div class="col-4">
                       <div class="dropdown text-end mb-6">
@@ -80,7 +80,7 @@
                         <i class="fa-solid fa-user-tie ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                     80
+                     <?php echo funcionariosAtivos()?>
                       </h5>
                       <span class="text-white text-sm">Funcionarios Ativos</span>
                     </div>

@@ -51,7 +51,7 @@
             </div>
             <span class="nav-link-text ms-1">Funcionário</span>
           </a>
-          <div class="collapse" id="submenuFuncionario" style="background-color:#eee;">
+          <div class="collapse" id="submenuFuncionario" style="background-color:#d1d1d1;">
             <ul class="navbar-nav ms-3">
               <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?r=cadFuncionario">
@@ -90,7 +90,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="dashboard.php?r=Agendamento">
+          <a class="nav-link  " href="dashboard.php?r=cadTarefa">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path d="M96 32l0 32L48 64C21.5 64 0 85.5 0 112l0 48 448 0 0-48c0-26.5-21.5-48-48-48l-48 0 0-32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 32L160 64l0-32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192L0 192 0 464c0 26.5 21.5 48 48 48l352 0c26.5 0 48-21.5 48-48l0-272zM224 248c13.3 0 24 10.7 24 24l0 56 56 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-56 0 0 56c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-56-56 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l56 0 0-56c0-13.3 10.7-24 24-24z" />
@@ -109,7 +109,7 @@
               </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Agendamento</span>
+            <span class="nav-link-text ms-1">Tarefa</span>
           </a>
         </li>
         <li class="nav-item">

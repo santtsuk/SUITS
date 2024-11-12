@@ -1,8 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suits</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
 <?php
 session_start();
 include "config.php";
 
-// Verifica se o formulário foi enviado com os campos necessários
+
 if (isset($_POST['email']) && isset($_POST['senha'])) {
     $login = $_POST['email'];
     $senha = $_POST['senha'];
@@ -12,7 +23,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
     $total_login = $query->num_rows;
 
     if ($total_login == 1) {
-        $sql2 = "SELECT id, nome FROM funcionarios WHERE email = '$login' AND senha = '$senha'";
+        $sql2 = "SELECT id, nome, perfil FROM funcionarios WHERE email = '$login' AND senha = '$senha'";
         $query2 = $mysqli->query($sql2);
         $total_senha = $query2->num_rows;
 
@@ -20,7 +31,8 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
             $row = $query2->fetch_assoc();
             $_SESSION['login'] = $login;
             $_SESSION['user_id'] = $row['id'];
-            $_SESSION['nome'] = $row['nome']; // Corrigido para "nome"
+            $_SESSION['nome'] = $row['nome'];
+            $_SESSION['perfil'] = $row['perfil'];
             echo "<script>window.location.href=('../dashboard.php');</script>";
         } else {
             echo "<script>
