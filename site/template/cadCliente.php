@@ -153,9 +153,9 @@ if (!empty($_POST)) {
 
     $nome = $mysqli->real_escape_string($_POST['nome']);
     $cpf = $mysqli->real_escape_string($_POST['cpf']);
-    $datanascimento = $mysqli->real_escape_string($_POST['data_nascimento']);
+    $datanascimento = DateTime::createFromFormat('d/m/Y', $_POST['datanascimento'])->format('Y-m-d');
     $nascionalidade = $mysqli->real_escape_string($_POST['nascionalidade']);
-    $estadocivil = $mysqli->real_escape_string($_POST['estado_civil']);
+    $estadocivil = $mysqli->real_escape_string($_POST['estadocivil']);
     $profissao = $mysqli->real_escape_string($_POST['profissao']);
     $email = $mysqli->real_escape_string($_POST['email']);
     $telefone = $mysqli->real_escape_string($_POST['telefone']);
@@ -167,7 +167,7 @@ if (!empty($_POST)) {
     $estado = $mysqli->real_escape_string($_POST['estado']);
     $status = "Ativo";
 
-        $sql = "INSERT INTO clientes (nome, cpf, data_nascimento, nascionalidade, estado_civil, profissao, email, telefone, cep, rua, bairro, cidade,numero, estado,status) 
+        $sql = "INSERT INTO clientes (nome, cpf, data_nascimento, nacionalidade, estado_civil, profissao, email, telefone, cep, rua, bairro, cidade,numero, estado,status) 
                 VALUES ('$nome', '$cpf', '$datanascimento','$nascionalidade','$estadocivil', '$profissao', '$email', '$telefone', '$cep', '$rua', '$bairro', '$cidade','$numero', '$estado','$status')";
         $query = $mysqli->query($sql);
 

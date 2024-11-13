@@ -61,7 +61,7 @@
                                         data-numero="<?php echo $dados['numero']; ?>"
                                         data-status="<?php echo $dados['status']; ?>"><i class="fa fa-chevron-down"></i></button>
 
-                                    <a href="scripts/del_funci.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger" title="Excluir" id="delFunci">
+                                    <a href="../site/scripts/del_funci.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger delFunci" title="Excluir">
                                         <i class="fa fa-trash"></i>
                                     </a>
 
@@ -123,7 +123,7 @@
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="especializacao" class="form-label">Especialização</label>
-                        <select required name="especializacao" class="form-control" id="especializacao"  readonly ondblclick="tornarEditavel(this)">
+                        <select required name="especializacao" class="form-control" id="especializacao" readonly ondblclick="tornarEditavel(this)">
                             <option value="">Selecione uma especialização</option>
                             <option value="direito_civil">Direito Civil</option>
                             <option value="direito_penal">Direito Penal</option>
@@ -206,22 +206,25 @@
         });
     });
 
-    document.getElementById('delFunci').addEventListener('click', function(event) {
-        event.preventDefault();
+    
+    document.querySelectorAll('.delFunci').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
 
-        Swal.fire({
-            title: 'Confirmar Exclusão',
-            text: "Tem certeza de que deseja excluir este funcionário?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, excluir',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = event.target.href;
-            }
+            Swal.fire({
+                title: 'Confirmar Exclusão',
+                text: "Tem certeza de que deseja excluir este funcionário?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, excluir',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = button.href; 
+                }
+            });
         });
     });
 </script>
@@ -233,8 +236,8 @@
     }
 
 
-        var modal = document.getElementById('Modalfunci');
-        modal.addEventListener('show.bs.modal', function(event) {
+    var modal = document.getElementById('Modalfunci');
+    modal.addEventListener('show.bs.modal', function(event) {
         var button = event.relatedTarget;
 
 
@@ -268,6 +271,8 @@
         modal.querySelector('input[name="bairro"]').value = bairro;
         modal.querySelector('input[name="cidade"]').value = cidade;
         modal.querySelector('input[name="estado"]').value = estado;
+
+        habilitarCampo();
     });
 </script>
 

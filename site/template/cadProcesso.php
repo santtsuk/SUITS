@@ -58,7 +58,7 @@
                         icon: "success",
                         text: "Dados Salvos com Sucesso!"
                     }).then(() => {
-                        window.location.href = "/SUITS/site/dashboard.php?r=cadProcesso";
+                        window.location.href = "../site/dashboard.php?r=cadProcesso";
                     });
                 } else {
                     Swal.fire({

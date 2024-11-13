@@ -21,6 +21,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
+            let feriadosCache = {}; 
+
+            async function obterFeriados(ano) {
+                
+                if (feriadosCache[ano]) {
+                    return feriadosCache[ano];
+                }
+
+                const url = `https://brasilapi.com.br/api/feriados/v1/${ano}`;
+
+                try {
+                    const response = await fetch(url);
+                    const feriados = await response.json();
+                    const eventosFeriados = feriados.map(feriado => ({
+                        title: feriado.name,
+                        start: feriado.date,
+                        color: 'red', 
+                        allDay: true 
+                    }));
+                    feriadosCache[ano] = eventosFeriados; 
+                    return eventosFeriados;
+                } catch (error) {
+                    console.error('Erro ao obter feriados:', error);
+                    return [];
+                }
+            }
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 headerToolbar: {
@@ -28,100 +54,113 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                initialDate: '2024-11-07',
+                initialDate:  new Date(),
                 navLinks: true,
                 selectable: true,
                 selectMirror: true,
                 locale: 'pt-br',
                 editable: true,
                 dayMaxEvents: true,
-                events: '../site/scripts/agenda.php',
+
+                events: async function(fetchInfo, successCallback, failureCallback) {
+                    const anoAtual = new Date(fetchInfo.start).getFullYear();
+                    try {
+                        const eventosDoBancoResponse = await fetch('../site/scripts/agenda.php');
+                        const eventosDoBanco = await eventosDoBancoResponse.json();
+                        const feriados = await obterFeriados(anoAtual);
+                        successCallback([...eventosDoBanco, ...feriados]);
+                    } catch (error) {
+                        console.error('Erro ao carregar eventos:', error);
+                        failureCallback(error);
+                    }
+                },
+
+                datesSet: function(info) {
+                    calendar.refetchEvents(); 
+                },
+
                 eventClick: function(info) {
-
                     document.getElementById('visualizar_evento_id').value = info.event.id;
-
-
                     document.getElementById('visualizar_titulo').innerHTML = info.event.title;
                     document.getElementById('visualizar_inicio').innerHTML = info.event.start.toLocaleString();
                     document.getElementById('visualizar_fim').innerHTML = info.event.end ? info.event.end.toLocaleString() : 'Data não disponível';
-                    document.getElementById('visualizar_descricao').innerHTML = info.event.extendedProps.descricao;
-                    document.getElementById('visualizar_processo').innerHTML = info.event.extendedProps.processo;
-                    document.getElementById('visualizar_cliente').innerHTML = info.event.extendedProps.cliente;
-                    document.getElementById('visualizar_usuario').innerHTML = info.event.extendedProps.usuario;
-                    document.getElementById('visualizar_status').checked = info.event.extendedProps.status;
-
+                    document.getElementById('visualizar_descricao').innerHTML = info.event.extendedProps.descricao || 'Feriado Nacional';
+                    document.getElementById('visualizar_processo').innerHTML = info.event.extendedProps.processo || '';
+                    document.getElementById('visualizar_cliente').innerHTML = info.event.extendedProps.cliente || '';
+                    document.getElementById('visualizar_usuario').innerHTML = info.event.extendedProps.usuario || '';
+                    document.getElementById('visualizar_status').checked = info.event.extendedProps.status || false;
 
                     new bootstrap.Modal(document.getElementById('visualizarModal')).show();
                 }
             });
 
             calendar.render();
+            
 
+        const excluirButton = document.getElementById('excluirEvento');
+        if (excluirButton) {
+            excluirButton.addEventListener('click', function() {
+                const eventId = document.getElementById('visualizar_evento_id').value;
+                if (confirm("Tem certeza que deseja excluir este evento?")) {
 
-            const excluirButton = document.getElementById('excluirEvento');
-            if (excluirButton) {
-                excluirButton.addEventListener('click', function() {
-                    const eventId = document.getElementById('visualizar_evento_id').value;
-                    if (confirm("Tem certeza que deseja excluir este evento?")) {
+                    fetch('../site/scripts/del_agenda.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `id=${eventId}`
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            alert(data);
+                            calendar.refetchEvents();
+                            new bootstrap.Modal(document.getElementById('visualizarModal')).hide();
+                        })
+                        .catch(error => {
+                            alert('Erro ao tentar excluir o evento');
+                        });
+                }
+            });
+        }
 
-                        fetch('../site/scripts/del_agenda.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                },
-                                body: `id=${eventId}`
-                            })
-                            .then(response => response.text())
-                            .then(data => {
-                                alert(data);
-                                calendar.refetchEvents();
-                                new bootstrap.Modal(document.getElementById('visualizarModal')).hide();
-                            })
-                            .catch(error => {
-                                alert('Erro ao tentar excluir o evento');
-                            });
-                    }
-                });
-            }
+        const adiarButton = document.getElementById('adiarEvento');
+        const confirmarAdiarButton = document.getElementById('confirmarAdiar');
 
-            const adiarButton = document.getElementById('adiarEvento');
-            const confirmarAdiarButton = document.getElementById('confirmarAdiar');
+        if (adiarButton) {
+            adiarButton.addEventListener('click', function() {
+                new bootstrap.Modal(document.getElementById('adiarModal')).show();
+            });
+        }
+        if (confirmarAdiarButton) {
+            confirmarAdiarButton.addEventListener('click', function() {
+                const eventId = document.getElementById('visualizar_evento_id').value;
+                const novaDataInicio = document.getElementById('novaDataInicio').value;
+                const novoHorarioInicio = document.getElementById('novoHorarioInicio').value;
+                const novaDataFim = document.getElementById('novaDataFim').value;
+                const novoHorarioFim = document.getElementById('novoHorarioFim').value;
 
-            if (adiarButton) {
-                adiarButton.addEventListener('click', function() {
-                    new bootstrap.Modal(document.getElementById('adiarModal')).show();
-                });
-            }
-            if (confirmarAdiarButton) {
-                confirmarAdiarButton.addEventListener('click', function() {
-                    const eventId = document.getElementById('visualizar_evento_id').value;
-                    const novaDataInicio = document.getElementById('novaDataInicio').value;
-                    const novoHorarioInicio = document.getElementById('novoHorarioInicio').value;
-                    const novaDataFim = document.getElementById('novaDataFim').value;
-                    const novoHorarioFim = document.getElementById('novoHorarioFim').value;
-
-                    if (novaDataInicio && novoHorarioInicio && novaDataFim && novoHorarioFim) {
-                        fetch('../site/scripts/adiar_evento.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                },
-                                body: `id=${eventId}&nova_dataInicio=${novaDataInicio}&nova_horaInicio=${novoHorarioInicio}&nova_dataFim=${novaDataFim}&nova_horaFim=${novoHorarioFim}`
-                            })
-                            .then(response => response.text())
-                            .then(data => {
-                                alert(data);
-                                calendar.refetchEvents();
-                                bootstrap.Modal.getInstance(document.getElementById('adiarModal')).hide();
-                            })
-                            .catch(error => {
-                                alert('Erro ao tentar adiar o evento');
-                            });
-                    } else {
-                        alert('Por favor, selecione a nova data e horário.');
-                    }
-                });
-            }
+                if (novaDataInicio && novoHorarioInicio && novaDataFim && novoHorarioFim) {
+                    fetch('../site/scripts/adiar_evento.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `id=${eventId}&nova_dataInicio=${novaDataInicio}&nova_horaInicio=${novoHorarioInicio}&nova_dataFim=${novaDataFim}&nova_horaFim=${novoHorarioFim}`
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            alert(data);
+                            calendar.refetchEvents();
+                            bootstrap.Modal.getInstance(document.getElementById('adiarModal')).hide();
+                        })
+                        .catch(error => {
+                            alert('Erro ao tentar adiar o evento');
+                        });
+                } else {
+                    alert('Por favor, selecione a nova data e horário.');
+                }
+            });
+        }
         });
     </script>
 </head>

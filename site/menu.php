@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link  active" href="dashboard.php?r=cadCliente">
+        <a class="nav-link" href="dashboard.php" data-bs-toggle="collapse" data-bs-target="#submenuCliente" aria-expanded="false">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path d="M384 48c8.8 0 16 7.2 16 16l0 384c0 8.8-7.2 16-16 16L96 464c-8.8 0-16-7.2-16-16L80 64c0-8.8 7.2-16 16-16l288 0zM96 0C60.7 0 32 28.7 32 64l0 384c0 35.3 28.7 64 64 64l288 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L96 0zM240 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128zm-32 32c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16l192 0c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80l-64 0zM512 80c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 64c0 8.8 7.2 16 16 16s16-7.2 16-16l0-64zM496 192c-8.8 0-16 7.2-16 16l0 64c0 8.8 7.2 16 16 16s16-7.2 16-16l0-64c0-8.8-7.2-16-16-16zm16 144c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 64c0 8.8 7.2 16 16 16s16-7.2 16-16l0-64z" />
@@ -28,8 +28,22 @@
               </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Cadastro Cliente</span>
+            <span class="nav-link-text ms-1">Cliente</span>
           </a>
+          <div class="collapse" id="submenuCliente" style="background-color:#d1d1d1;">
+            <ul class="navbar-nav ms-3">
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.php?r=cadCliente">
+                  <span class="nav-link-text ms-1">Novo Cliente</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.php?r=telaCliente">
+                  <span class="nav-link-text ms-1">Lista de Cliente</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="dashboard.php" data-bs-toggle="collapse" data-bs-target="#submenuFuncionario" aria-expanded="false">

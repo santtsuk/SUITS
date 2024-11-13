@@ -198,12 +198,17 @@
     $('#numOAB').mask('000000/AA');
     $('#numero_processo').mask('00000000000000-00.000.00');
     $('#vara').mask('0000000-00.0000.0.00.0000');
+    $('#datanascimento').mask('00/00/0000');
     $('#tableFunci').DataTable({
         responsive: true
     });
     $('#tableProcessos').DataTable({
         responsive: true
     });
+    $('#tableCliente').DataTable({
+        responsive: true
+    });
+    
   });
   
 </script>

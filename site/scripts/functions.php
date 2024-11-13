@@ -12,6 +12,15 @@ function dadosFunc()
     return $query;
 }
 
+function dadosClientes()
+{
+    include "config.php";
+    $rs = "SELECT * FROM clientes";
+    $query = $mysqli->query($rs);
+
+    return $query;
+}
+
 function dadosProcessos()
 {
     include "config.php";
