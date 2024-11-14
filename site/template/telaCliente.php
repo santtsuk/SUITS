@@ -58,9 +58,13 @@
                                         data-cidade="<?php echo $dados['cidade']; ?>"
                                         data-estado="<?php echo $dados['estado']; ?>"
                                         data-numero="<?php echo $dados['numero']; ?>"
-                                        data-status="<?php echo $dados['status']; ?>"><i class="fa fa-chevron-down"></i></button>
+                                        data-status="<?php echo $dados['status']; ?>"
+                                        data-rg-file="<?php echo $dados['caminho_rg']; ?>"
+                                        data-cpf-file="<?php echo $dados['caminho_cpf']; ?>"
+                                        data-residencia-file="<?php echo $dados['caminho_residencia']; ?>"
+                                        data-trabalho-file="<?php echo $dados['caminho_trabalho']; ?>"><i class="fa fa-chevron-down"></i></button>
 
-                                    <a href="../site/scripts/del_Cliente.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger delFunci" title="Excluir">
+                                    <a href="../site/scripts/del_Cliente.php?id=<?php echo $dados['id']; ?>" class="btn btn-danger delCliente" title="Excluir">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
@@ -170,6 +174,15 @@
                         <label for="estado" class="form-label">Estado</label>
                         <input type="text" name="estado" id="estado" class="form-control" readonly ondblclick="tornarEditavel(this)">
                     </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Arquivos</label>
+                        <ul>
+                            <li><a href="#" id="rgFileLink" target="_blank">Ver RG</a></li>
+                            <li><a href="#" id="cpfFileLink" target="_blank">Ver CPF</a></li>
+                            <li><a href="#" id="residenciaFileLink" target="_blank">Ver Comprovante de Residência</a></li>
+                            <li><a href="#" id="trabalhoFileLink" target="_blank">Ver Carteira de Trabalho</a></li>
+                        </ul>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -199,10 +212,14 @@
         var bairro = button.getAttribute('data-bairro');
         var cidade = button.getAttribute('data-cidade');
         var estado = button.getAttribute('data-estado');
+        var rgFile = button.getAttribute('data-rg-file');
+        var cpfFile = button.getAttribute('data-cpf-file');
+        var residenciaFile = button.getAttribute('data-residencia-file');
+        var trabalhoFile = button.getAttribute('data-trabalho-file');
 
         var dataNascimento = button.getAttribute('data-data-nascimento');
-        
-        
+
+
         modalCliente.querySelector('input[name="id"]').value = id;
         modalCliente.querySelector('input[name="nome"]').value = nome;
         modalCliente.querySelector('input[name="cpf"]').value = cpf;
@@ -217,6 +234,10 @@
         modalCliente.querySelector('input[name="bairro"]').value = bairro;
         modalCliente.querySelector('input[name="cidade"]').value = cidade;
         modalCliente.querySelector('input[name="estado"]').value = estado;
+        modalCliente.querySelector('#rgFileLink').href = rgFile ? rgFile : "#";
+        modalCliente.querySelector('#cpfFileLink').href = cpfFile ? cpfFile : "#";
+        modalCliente.querySelector('#residenciaFileLink').href = residenciaFile ? residenciaFile : "#";
+        modalCliente.querySelector('#trabalhoFileLink').href = trabalhoFile ? trabalhoFile : "#";
     });
 
     function tornarEditavel(campo) {

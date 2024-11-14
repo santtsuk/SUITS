@@ -18,7 +18,11 @@ CREATE TABLE clientes (
     cidade VARCHAR(50) NOT NULL,  
     numero VARCHAR(10) NOT NULL,  
     estado VARCHAR(2) NOT NULL,  
-    status VARCHAR(10) NOT NULL  
+    status VARCHAR(10) NOT NULL,
+    caminho_rg VARCHAR(255),
+    caminho_cpf VARCHAR(255),
+    caminho_residencia VARCHAR(255),
+    caminho_trabalho VARCHAR(255)  
 );
 
 -- Tabela de funcionários
