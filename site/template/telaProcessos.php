@@ -26,8 +26,6 @@
                             <th style="text-align: center;">Cliente</th>
                             <th style="text-align: center;">Número do Processo</th>
                             <th style="text-align: center;">Data</th>
-                            <th style="text-align: center;">Horário</th>
-                            <th style="text-align: center;">Vara</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Editar</th>
                         </tr>
@@ -43,8 +41,6 @@
                                 <td style="text-align: center;"><?php echo $dados['cliente_nome']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['numero_processo']; ?></td>
                                 <td style="text-align: center;"><?php echo date('d-m-Y', strtotime($dados['data'])); ?></td>
-                                <td style="text-align: center;"><?php echo $dados['horario']; ?></td>
-                                <td style="text-align: center;"><?php echo $dados['vara']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['status_process']; ?></td>
                                 <td style="text-align: center;">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalProcesso" data-id="<?php echo $dados['id']; ?>"
@@ -71,8 +67,6 @@
                             <th style="text-align: center;">Cliente</th>
                             <th style="text-align: center;">Número do Processo</th>
                             <th style="text-align: center;">Data</th>
-                            <th style="text-align: center;">Horário</th>
-                            <th style="text-align: center;">Vara</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Editar</th>
                         </tr>

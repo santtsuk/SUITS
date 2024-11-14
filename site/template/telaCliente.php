@@ -28,8 +28,6 @@
                             <th style="text-align: center;">Email</th>
                             <th style="text-align: center;">Telefone</th>
                             <th style="text-align: center;">Data de Nascimento</th>
-                            <th style="text-align: center;">Estado Civil</th>
-                            <th style="text-align: center;">Profissão</th>
                             <th style="text-align: center;">Ações</th>
                         </tr>
                     </thead>
@@ -44,8 +42,6 @@
                                 <td style="text-align: center;"><?php echo $dados['email']; ?></td>
                                 <td style="text-align: center;"><?php echo $dados['telefone']; ?></td>
                                 <td style="text-align: center;"><?php echo date('d/m/Y', strtotime($dados['data_nascimento'])); ?></td>
-                                <td style="text-align: center;"><?php echo ucfirst($dados['estado_civil']); ?></td>
-                                <td style="text-align: center;"><?php echo ucfirst($dados['profissao']); ?></td>
                                 <td style="text-align: center;">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCliente"
                                         data-id="<?php echo $dados['id']; ?>"
@@ -81,8 +77,6 @@
                             <th style="text-align: center;">Email</th>
                             <th style="text-align: center;">Telefone</th>
                             <th style="text-align: center;">Data de Nascimento</th>
-                            <th style="text-align: center;">Estado Civil</th>
-                            <th style="text-align: center;">Profissão</th>
                             <th style="text-align: center;">Ações</th>
                         </tr>
                     </tfoot>
@@ -131,12 +125,21 @@
 
                     <div class="col-md-6">
                         <label for="estado_civil" class="form-label">Estado Civil</label>
-                        <input type="text" name="estado_civil" class="form-control" readonly ondblclick="tornarEditavel(this)">
+                        <select required name="estado_civil" class="form-control" id="opcao" onchange="habilitarCampo()" readonly ondblclick="tornarEditavel(this)">
+                            <option value="">Selecione</option>
+                            <option value="solteiro">Solteiro(a)</option>
+                            <option value="casado">Casado(a)</option>
+                            <option value="viuvo">Viúvo(a)</option>
+                        </select>
                     </div>
 
                     <div class="col-md-6">
                         <label for="profissao" class="form-label">Profissão</label>
-                        <input type="text" name="profissao" class="form-control" readonly ondblclick="tornarEditavel(this)">
+                        <select required name="profissao" class="form-control" id="opcao" onchange="habilitarCampo()" readonly ondblclick="tornarEditavel(this)">
+                            <option value="">Selecione profissão</option>
+                            <option value="secretario">Secretario(a)</option>
+                            <option value="advogado">Advogado(a)</option>
+                        </select>
                     </div>
 
                     <div class="col-md-6">
@@ -179,8 +182,8 @@
 </div>
 
 <script>
-        var modalCliente = document.getElementById('ModalCliente');
-        modalCliente.addEventListener('show.bs.modal', function(event) {
+    var modalCliente = document.getElementById('ModalCliente');
+    modalCliente.addEventListener('show.bs.modal', function(event) {
         var button = event.relatedTarget;
 
         var id = button.getAttribute('data-id');
@@ -197,18 +200,17 @@
         var cidade = button.getAttribute('data-cidade');
         var estado = button.getAttribute('data-estado');
 
-        var dataNascimento = button.getAttribute('data-dataNascimento');
-        var date = new Date(dataNascimento);
-        var formattedDate = date.toLocaleDateString('pt-BR');
-
+        var dataNascimento = button.getAttribute('data-data-nascimento');
+        
+        
         modalCliente.querySelector('input[name="id"]').value = id;
         modalCliente.querySelector('input[name="nome"]').value = nome;
         modalCliente.querySelector('input[name="cpf"]').value = cpf;
         modalCliente.querySelector('input[name="email"]').value = email;
         modalCliente.querySelector('input[name="telefone"]').value = telefone;
-        modalCliente.querySelector('input[name="data_nascimento"]').value = formattedDate;
-        modalCliente.querySelector('input[name="estado_civil"]').value = estadoCivil;
-        modalCliente.querySelector('input[name="profissao"]').value = profissao;
+        modalCliente.querySelector('input[name="data_nascimento"]').value = dataNascimento;
+        modalCliente.querySelector('select[name="estado_civil"]').value = estadoCivil;
+        modalCliente.querySelector('select[name="profissao"]').value = profissao;
         modalCliente.querySelector('input[name="cep"]').value = cep;
         modalCliente.querySelector('input[name="numero"]').value = numero;
         modalCliente.querySelector('input[name="rua"]').value = rua;
@@ -243,10 +245,10 @@
         });
     });
 
-    
+
     document.querySelectorAll('.delCliente').forEach(function(button) {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             Swal.fire({
                 title: 'Confirmar Exclusão',
                 text: "Tem certeza de que deseja excluir este Cliente?",
@@ -258,8 +260,8 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    
-                    window.location.href = button.href; 
+
+                    window.location.href = button.href;
                 }
             });
         });

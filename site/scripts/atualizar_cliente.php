@@ -21,6 +21,7 @@ if (isset($_POST['id'])) {
     $email = $_POST['email'];
     $telefone = $_POST['telefone'];
     $data_nascimento = $_POST['data_nascimento'];
+    $data_nascimento = str_replace('/', '-', $data_nascimento);
     $data_Update = date('Y-m-d', strtotime($data_nascimento));
     $estado_civil = $_POST['estado_civil'];
     $profissao = $_POST['profissao'];
